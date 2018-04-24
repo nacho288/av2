@@ -1,28 +1,28 @@
 // Definiendo el div principal
 
-var divPrincipal = document.getElementById("principal");
+const divPrincipal = document.getElementById("principal");
 
 // Declarando botones
 
-var tomar = 0;
-var mirar = 0;
-var usar = 0;
+let tomar = 0;
+let mirar = 0;
+let usar = 0;
 
 /// Freno de acciones
 
-var detener = 0;
+let detener = 0;
 
 // Declarando musica
 
-var audio = new Audio('turu.mp3');
-var sabrir = new Audio('abrir cuadro.mp3');
-var scerrar = new Audio('cerrar cuadro.mp3');
-var ssel = new Audio('sel.mp3');
-var sunsel = new Audio('unsel.mp3');
+const audio = new Audio('turu.mp3');
+const sabrir = new Audio('abrir cuadro.mp3');
+const scerrar = new Audio('cerrar cuadro.mp3');
+const ssel = new Audio('sel.mp3');
+const sunsel = new Audio('unsel.mp3');
 
 /////////// elbotondetomar{}  //////////////////
 
-var botontomar = document.createElement("input");
+const botontomar = document.createElement("input");
 botontomar.setAttribute("type", "image");
 botontomar.setAttribute("onclick", "tomartomar()");
 botontomar.src = "interfaz/tomar.png";
@@ -44,7 +44,11 @@ if (detener == 0){
 		
 		}
 
-	else if (tomar == 1) { botontomar.src = "interfaz/tomar.png"; tomar = 0; sunsel.play();}
+	else if (tomar == 1) { 
+	
+		botontomar.src = "interfaz/tomar.png"; tomar = 0; sunsel.play();
+	
+	}
 	
 }
 
@@ -52,7 +56,7 @@ if (detener == 0){
 
 //////////// elbotondemirar(){} ////////////////////
 
-var botonmirar = document.createElement("input");
+const botonmirar = document.createElement("input");
 botonmirar.setAttribute("type", "image");
 botonmirar.setAttribute("onclick", "mirarmirar()");
 botonmirar.src = "interfaz/mirar.png";
@@ -81,7 +85,7 @@ if (detener == 0){
 
 //////////// elbotondeusar(){} ////////////////////
 
-var botonusar = document.createElement("input");
+const botonusar = document.createElement("input");
 botonusar.setAttribute("type", "image");
 botonusar.setAttribute("onclick", "usarusar()");
 botonusar.src = "interfaz/usar.png";
@@ -111,28 +115,28 @@ if (detener == 0){
 
 ///////// Declarando inventario//////////////
 
-var inventa = new Array;
+let inventa = new Array;
 
 // Generadores de objetos 
 
+
 function objeto(nombre) {
 	
-var boton = document.createElement("input");
+	const boton = document.createElement("input");
+	boton.setAttribute("type", "image");
+	boton.setAttribute("id", nombre);
 
-boton.setAttribute("type", "image");
+	const acciondir = "accion('" + nombre + "')";
+	boton.setAttribute("onclick", acciondir);
 
-boton.setAttribute("id", nombre);
+	boton.src = "interfaz/obj/" + nombre + ".png";
+	boton.className = "objeto" + nombre;
 
-var acciondir = "accion('" + nombre + "')";
-
-boton.setAttribute("onclick", acciondir);
-
-boton.src = "interfaz/obj/" + nombre + ".png";
-boton.className = "objeto" + nombre;
-
-divPrincipal.appendChild(boton);
+	divPrincipal.appendChild(boton);
 	
 }
+
+
 
 function accion(nombre) {
 		
@@ -141,12 +145,12 @@ function accion(nombre) {
 		if (tomar == 1)					
 		{
 		
-			var boton = document.getElementById(nombre);
+			let boton = document.getElementById(nombre);
 			divPrincipal.removeChild(boton);
 			tomar = 0;				
 			botontomar.src = "interfaz/tomar.png";
 			audio.play();					
-			var tomado = new objetoi(nombre);
+			let tomado = new objetoi(nombre);
 			
 			
 		}				
@@ -183,18 +187,18 @@ function cuadromirar(nombre) {
 	
 	detener = 1;
 	
-	var cuadrin = document.createElement("div");
+	const cuadrin = document.createElement("div");
 	cuadrin.className = "textines";
 	cuadrin.setAttribute("id", "m" + nombre);
 	
-	var texto1 = document.createElement("p");
+	const texto1 = document.createElement("p");
 	texto1.textContent = descrip(nombre);
 	texto1.className = "letras";
 
 	divPrincipal.appendChild(cuadrin);
 	cuadrin.appendChild(texto1);
 					
-	var sacardir = "sacarcuadro('m" + nombre + "')";
+	const sacardir = "sacarcuadro('m" + nombre + "')";
     cuadrin.setAttribute("onclick", sacardir);
 	
 	
@@ -204,18 +208,18 @@ function cuadrousar(nombre) {
 	
 	detener = 1;
 	
-	var cuadrin = document.createElement("div");
+	const cuadrin = document.createElement("div");
 	cuadrin.className = "textines";
 	cuadrin.setAttribute("id", "u" + nombre);
 	
-	var texto1 = document.createElement("p");
+	const texto1 = document.createElement("p");
 	texto1.textContent = "no se que queres que haga";
 	texto1.className = "letras";
 
 	divPrincipal.appendChild(cuadrin);
 	cuadrin.appendChild(texto1);
 					
-	var sacardir = "sacarcuadro('u" + nombre + "')";
+	const sacardir = "sacarcuadro('u" + nombre + "')";
     cuadrin.setAttribute("onclick", sacardir);
 	
 	
@@ -223,7 +227,7 @@ function cuadrousar(nombre) {
 
 function sacarcuadro(nombre) {
 	
-	var cuadro = document.getElementById(nombre);
+	const cuadro = document.getElementById(nombre);
 	divPrincipal.removeChild(cuadro);
 	scerrar.play();	
 	detener = 0;
@@ -241,15 +245,15 @@ objetoi.count++;
 
 inventa[objetoi.count] = nombre;
 
-var boton = document.createElement("input");
+const boton = document.createElement("input");
 
 boton.setAttribute("type", "image");
 boton.setAttribute("id", nombre);
 
-var numero = objetoi.count;
+let numero = objetoi.count;
 
 
-var eliminardir = "eliminar('" + nombre + "')";
+const eliminardir = "eliminar('" + nombre + "')";
 
 boton.setAttribute("onclick", eliminardir);
 
@@ -264,10 +268,10 @@ divPrincipal.appendChild(boton);
 
 function eliminar(nombre) {
 	
-	var botone = document.getElementById(nombre);
+	const botone = document.getElementById(nombre);
 	divPrincipal.removeChild(botone);							
 	
-	var a = 0;
+	let a = 0;
 	while (a <8) { 
 
 		a++;
@@ -293,10 +297,10 @@ objetoi.count = 0;
 
 function inventario() {
 	
-	var a = 1;
-	var test;
-	var test2; 
-	var elqsigue;
+	let a = 1;
+	let test;
+	let test2; 
+	let elqsigue;
 	
 	while (a <8) { 
 	
@@ -312,7 +316,7 @@ function inventario() {
 			
 			if (test2 != null || test2 != undefined){
 				
-				var amover = document.getElementById(test2);
+				const amover = document.getElementById(test2);
 				amover.className = "objeto" + a + "o";
 				inventa[elquesigue] = null;
 				inventa[a] = test2;
@@ -346,15 +350,16 @@ function descrip(nombre) {
 // ------ Generando objetos ------------
 
 
-var objetoa = new objeto("a");
-var objetob = new objeto("b");
-var objetoc = new objeto("c");
-var objetod = new objeto("d");
-var objetoe = new objeto("e");
-var objetof = new objeto("f");
-var objetog = new objeto("g");
-var objetoh = new objeto("h");
+let objetoa = new objeto("a");
+let objetob = new objeto("b");
+let objetoc = new objeto("c");
+let objetod = new objeto("d");
+let objetoe = new objeto("e");
+let objetof = new objeto("f");
+let objetog = new objeto("g");
+let objetoh = new objeto("h");
 
-var objetollave = new objeto("llave");
+let objetollave = new objeto("llave");
+
 
 
