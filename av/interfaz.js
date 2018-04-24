@@ -355,6 +355,6 @@ var objetof = new objeto("f");
 var objetog = new objeto("g");
 var objetoh = new objeto("h");
 
-// var objetollave = new objeto("llave");
+var objetollave = new objeto("llave");
 
 
