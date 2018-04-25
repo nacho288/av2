@@ -11,8 +11,8 @@ let seleccion = 0;
 
 /// seleccionados para usar
 
-let usaro1;
-let usaro2;
+let usaro1 = null;
+let usaro2 = null;
 
 /// Freno de acciones
 
@@ -39,7 +39,8 @@ divPrincipal.appendChild(botontomar);
 
 function tomartomar() {
 	
-	if (detener == 0){ 
+	if (detener == 0 && usaro1 == null){ 
+	
 		
 		if (tomar == 0) { 
 			
@@ -72,7 +73,7 @@ divPrincipal.appendChild(botonmirar);
 
 function mirarmirar() {
 	
-if (detener == 0){ 
+if (detener == 0 && usaro1 == null){ 
 	
 	if (mirar == 0) { 
 		
@@ -101,7 +102,7 @@ divPrincipal.appendChild(botonusar);
 
 function usarusar() {
 	
-if (detener == 0){ 
+if (detener == 0 && usaro1 == null){ 
 	
 	if (usar == 0) { 
 		
@@ -170,8 +171,7 @@ function accion(nombre) {
 		
 		if (usar == 1) {
 			
-			usar = 0;				
-			botonusar.src = "interfaz/usar.png";
+
 			usaro2 = nombre;
 			accionUsar();
 			
@@ -187,8 +187,12 @@ function accionUsar() {
 	
 	let parte1;
 	
-	if (usaro1 == null || usaro1 == undefined ) {parte1 = "";}
-	else {parte1 = usaro1 }
+	if (usaro1 == null) {parte1 = "";}
+	else {
+		parte1 = usaro1 
+		selecFicha();
+		
+		}
 		
 	let parte2 = usaro2;
 	
@@ -199,7 +203,9 @@ function accionUsar() {
 	usaro1 = null;
 	usaro2 = null;
 	
-	selecFicha();
+	usar = 0;				
+	botonusar.src = "interfaz/usar.png";
+
 	
 }
 
@@ -292,18 +298,32 @@ function accionficha(nombre){
 	if (detener == 0){
 	
 		if (usar == 1) {
+			
+			if (usaro1 == null) { 
 		
-			let a = 0;
-			while (a <8) { 
+				let a = 0;
+				while (a <8) { 
 
-				a++;
-				test = inventa[a];
-				
-				if (test == nombre) { 
-				
-					selecFicha(nombre, a);
+					a++;
+					test = inventa[a];
 					
-				} 		
+					if (test == nombre) { 
+					
+						selecFicha(nombre, a);
+						
+					} 		
+					
+				}
+
+		
+			
+			}
+			
+			else {
+			
+				usaro2 = nombre;
+				accionUsar();
+				
 				
 			}
 		
