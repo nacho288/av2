@@ -7,6 +7,12 @@ const divPrincipal = document.getElementById("principal");
 let tomar = 0;
 let mirar = 0;
 let usar = 0;
+let seleccion = 0;
+
+/// seleccionados para usar
+
+let usaro1;
+let usaro2;
 
 /// Freno de acciones
 
@@ -33,24 +39,24 @@ divPrincipal.appendChild(botontomar);
 
 function tomartomar() {
 	
-if (detener == 0){ 
-	
-	if (tomar == 0) { 
+	if (detener == 0){ 
 		
-		botontomar.src = "interfaz/tomarp.png"; tomar = 1;
-		botonmirar.src = "interfaz/mirar.png"; mirar = 0;
-		botonusar.src = "interfaz/usar.png"; usar = 0;
-		ssel.play();
+		if (tomar == 0) { 
+			
+			botontomar.src = "interfaz/tomarp.png"; tomar = 1;
+			botonmirar.src = "interfaz/mirar.png"; mirar = 0;
+			botonusar.src = "interfaz/usar.png"; usar = 0;
+			ssel.play();
+			
+			}
+
+		else if (tomar == 1) { 
+		
+			botontomar.src = "interfaz/tomar.png"; tomar = 0; sunsel.play();
 		
 		}
-
-	else if (tomar == 1) { 
-	
-		botontomar.src = "interfaz/tomar.png"; tomar = 0; sunsel.play();
-	
+		
 	}
-	
-}
 
 }
 
@@ -142,8 +148,7 @@ function accion(nombre) {
 		
 	if (detener == 0){ 
 				
-		if (tomar == 1)					
-		{
+		if (tomar == 1)	{
 		
 			let boton = document.getElementById(nombre);
 			divPrincipal.removeChild(boton);
@@ -167,16 +172,35 @@ function accion(nombre) {
 			
 			usar = 0;				
 			botonusar.src = "interfaz/usar.png";
-			sabrir.play();
-							
-			cuadrousar(nombre);
-								
+			usaro2 = nombre;
+			accionUsar();
+			
 			
 			
 		}
+	
+	}
+
+}
+
+function accionUsar() {
+	
+	let parte1;
+	
+	if (usaro1 == null || usaro1 == undefined ) {parte1 = "";}
+	else {parte1 = usaro1 }
 		
-		}
-				
+	let parte2 = usaro2;
+	
+	let combinacion = parte1 + parte2;
+	
+	console.log(combinacion)
+	
+	usaro1 = null;
+	usaro2 = null;
+	
+	selecFicha();
+	
 }
 
 function cuadromirar(nombre) {
@@ -265,35 +289,62 @@ divPrincipal.appendChild(boton);
 
 function accionficha(nombre){
 	
-	if (usar == 1) {
+	if (detener == 0){
 	
-		let a = 0;
-		while (a <8) { 
+		if (usar == 1) {
+		
+			let a = 0;
+			while (a <8) { 
 
-			a++;
-			test = inventa[a];
+				a++;
+				test = inventa[a];
+				
+				if (test == nombre) { 
+				
+					selecFicha(nombre, a);
+					
+				} 		
+				
+			}
+		
+		}
+		
+		if (mirar == 1) {
 			
-			if (test == nombre) { 
-
-				const imgsele = document.createElement("input");
-				imgsele.setAttribute("type", "image");			
-				imgsele.src = "interfaz/fichasel.png";
-				imgsele.className = "objeto" + a + "o";
-				divPrincipal.appendChild(imgsele);
-			} 		
-			
+			mirar = 0;
+			botonmirar.src = "interfaz/mirar.png";
+			cuadromirar(nombre);
+					
 		}
 	
 	}
-	
-	if (mirar == 1) {
-		
-		mirar = 0;
-		botonmirar.src = "interfaz/mirar.png";
-		cuadromirar(nombre);
-				
-	}
 
+	
+}
+
+function selecFicha(nombre, a) {
+	
+	if (seleccion == 0){
+		
+		seleccion = 1;
+		const imgsele = document.createElement("input");
+		imgsele.setAttribute("type", "image");			
+		imgsele.src = "interfaz/fichasel.png";
+		imgsele.setAttribute("id", "pepito");
+		imgsele.className = "objeto" + a + "o";
+		divPrincipal.appendChild(imgsele);
+		
+		usaro1 = nombre;
+	
+	}
+	
+	else if (seleccion == 1) {
+		
+		seleccion = 0;
+		const botone = document.getElementById("pepito");
+		divPrincipal.removeChild(botone);			
+		
+	}
 	
 }
 
@@ -313,7 +364,6 @@ function eliminar(nombre) {
 			inventa[a]= null;
 
 		} 
-		
 		
 	}
 	
