@@ -158,12 +158,8 @@ function accion(nombre) {
 		if (mirar == 1) {
 			
 			mirar = 0;				
-			botonmirar.src = "interfaz/mirar.png";
-			sabrir.play();
-							
-			cuadromirar(nombre);
-								
-			
+			botonmirar.src = "interfaz/mirar.png";									
+			cuadromirar(nombre);			
 			
 		}
 		
@@ -186,6 +182,7 @@ function accion(nombre) {
 function cuadromirar(nombre) {
 	
 	detener = 1;
+	sabrir.play();
 	
 	const cuadrin = document.createElement("div");
 	cuadrin.className = "textines";
@@ -253,9 +250,9 @@ boton.setAttribute("id", nombre);
 let numero = objetoi.count;
 
 
-const eliminardir = "eliminar('" + nombre + "')";
+const accdir = "accionficha('" + nombre + "')";
 
-boton.setAttribute("onclick", eliminardir);
+boton.setAttribute("onclick", accdir);
 
 boton.src = "interfaz/obj/" + nombre + "-o.png";
 boton.className = "objeto" + objetoi.count + "o";
@@ -264,6 +261,40 @@ divPrincipal.appendChild(boton);
 
 
 				
+}
+
+function accionficha(nombre){
+	
+	if (usar == 1) {
+	
+		let a = 0;
+		while (a <8) { 
+
+			a++;
+			test = inventa[a];
+			
+			if (test == nombre) { 
+
+				const imgsele = document.createElement("input");
+				imgsele.setAttribute("type", "image");			
+				imgsele.src = "interfaz/fichasel.png";
+				imgsele.className = "objeto" + a + "o";
+				divPrincipal.appendChild(imgsele);
+			} 		
+			
+		}
+	
+	}
+	
+	if (mirar == 1) {
+		
+		mirar = 0;
+		botonmirar.src = "interfaz/mirar.png";
+		cuadromirar(nombre);
+				
+	}
+
+	
 }
 
 function eliminar(nombre) {
@@ -328,7 +359,7 @@ function inventario() {
 		
 	}
 
-	} 
+} 
 
 // ------ Descripciones ------------
 
@@ -343,7 +374,6 @@ function descrip(nombre) {
 	if (nombre == "g") {return "Esto es una letra G de color rosa";}
 	if (nombre == "h") {return "Esto es una letra H de color violeta";}
 	if (nombre == "llave") {return "Esto es una llave";}
-	
 	
 }
 
