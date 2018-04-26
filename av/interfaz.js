@@ -18,8 +18,6 @@ let usaro2 = null;
 
 let detener = 0;
 
-// El
-
 // Declarando musica
 
 const audio = new Audio('turu.mp3');
@@ -129,13 +127,13 @@ let inventa = new Array;
 // Generadores de objetos 
 
 
-function objeto(nombre) {
+function objeto(nombre, juntable, lugar) {
 	
 	const boton = document.createElement("input");
 	boton.setAttribute("type", "image");
 	boton.setAttribute("id", nombre);
 
-	const acciondir = "accion('" + nombre + "')";
+	const acciondir = "accion('" + nombre + "', '" + juntable + "')";
 	boton.setAttribute("onclick", acciondir);
 
 	boton.src = "interfaz/obj/" + nombre + ".png";
@@ -147,18 +145,32 @@ function objeto(nombre) {
 
 
 
-function accion(nombre) {
+function accion(nombre, juntable) {
 		
 	if (detener == 0){ 
 				
 		if (tomar == 1)	{
+			
+			if (juntable == "tomable"){
+					
+				let boton = document.getElementById(nombre);
+				divPrincipal.removeChild(boton);
+				tomar = 0;				
+				botontomar.src = "interfaz/tomar.png";
+				audio.play();					
+				let tomado = new objetoi(nombre);
+				
+			}
+			
+			else if (juntable != "tomable") {
+				
+				tomar = 0;				
+				botontomar.src = "interfaz/tomar.png";
+				cuadromirar("notomar");
+				
+			}
 		
-			let boton = document.getElementById(nombre);
-			divPrincipal.removeChild(boton);
-			tomar = 0;				
-			botontomar.src = "interfaz/tomar.png";
-			audio.play();					
-			let tomado = new objetoi(nombre);
+
 			
 			
 		}				
@@ -199,6 +211,8 @@ function accionUsar() {
 	let parte2 = usaro2;
 	
 	let combinacion = parte1 + parte2;
+	
+	console.log(combinacion);
 	
 	funcionesUsar(combinacion);
 	
@@ -453,7 +467,8 @@ function descrip(nombre) {
 	if (nombre == "nadausar") {return "No te entiendo";}
 	if (nombre == "cofreu") {return "cofre abierto, tiene una llave";}
 	if (nombre == "puertaa") {return "Puerta abierta";}
-
+	
+	if (nombre == "notomar") {return "No puedo agarrar eso";}
 	
 }
 
@@ -484,7 +499,7 @@ function funcionesUsar(codigo) {
 		divPrincipal.appendChild(cofrea);
 		
 	
-		let objetollave = new objeto("llave");
+		let objetollave = new objeto("llave", "tomable", "casa");
 		
 		cuadromirar("cofreu");
 		
@@ -525,7 +540,7 @@ function funcionesUsar(codigo) {
 
 
 
-let objetocofre = new objeto("cofre");
-let objetopuerta = new objeto("puerta");
+let objetocofre = new objeto("cofre", "noTomable", "casa");
+let objetopuerta = new objeto("puerta", "noTomable", "casa");
 
 
