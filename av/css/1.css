@@ -143,11 +143,35 @@ section {
 
 
 .objetollave {
-		bottom: 500px;
-        left: 500px;
+		bottom: 470px;
+		left: 220px;
+		position: absolute;	
+		z-index: 12;
+		
+	
+}
+
+.objetocofre {
+		bottom: 400px;
+        left: 150px;
         position: absolute;	
 		z-index: 10;
-		
+	
+}
+
+.objetocofrea{
+		bottom: 400px;
+        left: 150px;
+        position: absolute;	
+		z-index: 10;
+	
+}
+
+.objetopuerta{
+		bottom: 400px;
+        left: 650px;
+        position: absolute;	
+		z-index: 10;
 	
 }
 
@@ -223,10 +247,4 @@ section {
 	
 }
 
-
-#lienzo {
-
-  background-color: #ececec;
-
-}
 

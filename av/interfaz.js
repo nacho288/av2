@@ -18,6 +18,8 @@ let usaro2 = null;
 
 let detener = 0;
 
+// El
+
 // Declarando musica
 
 const audio = new Audio('turu.mp3');
@@ -198,7 +200,7 @@ function accionUsar() {
 	
 	let combinacion = parte1 + parte2;
 	
-	console.log(combinacion)
+	funcionesUsar(combinacion);
 	
 	usaro1 = null;
 	usaro2 = null;
@@ -443,23 +445,87 @@ function descrip(nombre) {
 	if (nombre == "f") {return "Esto es una letra F de color naranja";}
 	if (nombre == "g") {return "Esto es una letra G de color rosa";}
 	if (nombre == "h") {return "Esto es una letra H de color violeta";}
-	if (nombre == "llave") {return "Esto es una llave";}
+	if (nombre == "llave") {return "Esto es una llave mal dibujada";}
+	if (nombre == "cofre") {return "Un cofre sucio cerrado";}
+	if (nombre == "puerta") {return "Una puerta cerrada";}
+	
+	if (nombre == "ab") {return "La mezcla magica";}
+	if (nombre == "nadausar") {return "No te entiendo";}
+	if (nombre == "cofreu") {return "cofre abierto, tiene una llave";}
+	if (nombre == "puertaa") {return "Puerta abierta";}
+
+	
+}
+
+// ------ Funciones de Usar ------------
+
+function funcionesUsar(codigo) {
+	
+	if (codigo == "ab") {
+		
+		cuadromirar("ab");
+		
+	}
+	
+	else if (codigo == "puerta") {
+	
+	cuadromirar("puerta");
+		
+	}
+
+	else if (codigo == "cofre") {
+		
+		let boton = document.getElementById("cofre");
+		divPrincipal.removeChild(boton);
+		
+		const cofrea = document.createElement("img");		
+		cofrea.src = "interfaz/obj/cofrea.png";
+		cofrea.className = "objetocofrea";
+		divPrincipal.appendChild(cofrea);
+		
+	
+		let objetollave = new objeto("llave");
+		
+		cuadromirar("cofreu");
+		
+	}
+	
+	else if (codigo == "llavepuerta") {
+	
+		let boton = document.getElementById("puerta");
+		divPrincipal.removeChild(boton);
+		
+		const puertaa = document.createElement("img");		
+		puertaa.src = "interfaz/obj/puertaa.png";
+		puertaa.className = "objetopuerta";
+		divPrincipal.appendChild(puertaa);
+		
+		eliminar("llave");
+		
+		cuadromirar("puertaa");
+		
+	
+	}
+	
+	else { cuadromirar("nadausar"); } 
 	
 }
 
 // ------ Generando objetos ------------
 
 
-let objetoa = new objeto("a");
-let objetob = new objeto("b");
-let objetoc = new objeto("c");
-let objetod = new objeto("d");
-let objetoe = new objeto("e");
-let objetof = new objeto("f");
-let objetog = new objeto("g");
-let objetoh = new objeto("h");
+// let objetoa = new objeto("a");
+// let objetob = new objeto("b");
+// let objetoc = new objeto("c");
+// let objetod = new objeto("d");
+// let objetoe = new objeto("e");
+// let objetof = new objeto("f");
+// let objetog = new objeto("g");
+// let objetoh = new objeto("h");
 
-let objetollave = new objeto("llave");
 
+
+let objetocofre = new objeto("cofre");
+let objetopuerta = new objeto("puerta");
 
 
