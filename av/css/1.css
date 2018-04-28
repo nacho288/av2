@@ -18,17 +18,28 @@ section {
 	
 }
 
+.nivel {
+	
+		width: 925px;
+		height: 441px;
+		bottom: 299px;
+        left: 48px;
+        position: absolute;	
+		z-index: 10;
+		background-color: silver;
+	
+}
+
 .textines {
 		background-color: black;
 		position: absolute;
 		left: 0; 
 		right: 0; 
 		margin-left: auto; 
-		margin-right: auto; 
-		
+		margin-right: auto; 		
 		width: 500px;
 		bottom: 320px;
-	z-index: 12;
+		z-index: 12;
 }
 
 .letras {
@@ -61,6 +72,15 @@ section {
 .usar {
 		bottom: 24px;
         left: 545px;
+        position: absolute;	
+		z-index: 11;
+		
+	
+}
+
+.este {
+        bottom: 102px;
+        left: 772px;
         position: absolute;	
 		z-index: 11;
 		
@@ -143,8 +163,8 @@ section {
 
 
 .objetollave {
-		bottom: 470px;
-		left: 220px;
+		bottom: 155px;
+		left: 420px;
 		position: absolute;	
 		z-index: 12;
 		
@@ -152,24 +172,32 @@ section {
 }
 
 .objetocofre {
-		bottom: 400px;
-        left: 150px;
+		bottom: 80px;
+        left: 350px;
         position: absolute;	
 		z-index: 10;
 	
 }
 
 .objetocofrea{
-		bottom: 400px;
-        left: 150px;
+		bottom: 80px;
+        left: 350px;
         position: absolute;	
 		z-index: 10;
 	
 }
 
 .objetopuerta{
-		bottom: 400px;
-        left: 650px;
+		bottom: 39px;
+        left: 440px;
+        position: absolute;	
+		z-index: 10;
+	
+}
+
+.objetopuertaa{
+		bottom: 15px;
+        left: 440px;
         position: absolute;	
 		z-index: 10;
 	

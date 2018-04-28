@@ -8,6 +8,7 @@ let tomar = 0;
 let mirar = 0;
 let usar = 0;
 let seleccion = 0;
+objetoi.count = 0;
 
 /// seleccionados para usar
 
@@ -25,6 +26,78 @@ const sabrir = new Audio('abrir cuadro.mp3');
 const scerrar = new Audio('cerrar cuadro.mp3');
 const ssel = new Audio('sel.mp3');
 const sunsel = new Audio('unsel.mp3');
+const cnvl = new Audio('nivel.mp3');
+const asf = new Audio('seleficha.mp3');
+/////// creando niveles /////////////////////////
+
+
+
+function nivelNuevo(nombre) {
+	
+	const nivel = document.createElement("div");
+	nivel.className = "nivel";
+	
+	let nombreNivel = "nivel" + nombre;
+	nivel.setAttribute("id", nombreNivel);
+	
+	const fondo = document.createElement("img");
+	fondo.src = "interfaz/fondos/" + nombre + ".png";
+	
+	nivel.appendChild(fondo);
+	divPrincipal.appendChild(nivel);
+	
+}
+
+/////////// cambia nivel{}  //////////////////
+
+let nivelActual = 0;
+
+
+
+const botonEste = document.createElement("input");
+botonEste.setAttribute("type", "image");
+botonEste.setAttribute("onclick", "cambiaNivel()");
+botonEste.src = "interfaz/estep.png";
+botonEste.className = "este";
+divPrincipal.appendChild(botonEste);
+
+function cambiaNivel(){
+	
+	cnvl.play();
+	
+	if (nivelActual == 0){
+		
+		nivelActual = 1;
+		
+		console.log("llendo a entrada");
+		
+		let pieza = document.getElementById("nivelpieza");
+		let entrada = document.getElementById("nivelentrada");
+		
+		pieza.style.visibility = 'hidden';		
+        entrada.style.visibility = 'visible';
+		
+	}
+	
+	else if (nivelActual == 1){
+		
+		let pieza = document.getElementById("nivelpieza");
+		let entrada = document.getElementById("nivelentrada");
+		
+		console.log("llendo a pieza");
+		
+		entrada.style.visibility = 'hidden';		
+        pieza.style.visibility = 'visible';
+		
+		nivelActual = 0;
+		
+		
+		
+	}
+	
+	
+	
+}
 
 /////////// elbotondetomar{}  //////////////////
 
@@ -138,8 +211,24 @@ function objeto(nombre, juntable, lugar) {
 
 	boton.src = "interfaz/obj/" + nombre + ".png";
 	boton.className = "objeto" + nombre;
+	
+	let nombrenivel = "nivel" + lugar;
+	
+	let nivel = document.getElementById(nombrenivel);
 
-	divPrincipal.appendChild(boton);
+	nivel.appendChild(boton);
+	
+	
+}
+
+function objetoFondo(nombre, lugar) {
+	
+	console.log(lugar);
+	const objeto = document.createElement("img");		
+	objeto.src = "interfaz/obj/" + nombre + ".png";
+	objeto.className = "objeto" + nombre;
+	const nivel = document.getElementById("nivel" + lugar);
+	nivel.appendChild(objeto);
 	
 }
 
@@ -154,7 +243,8 @@ function accion(nombre, juntable) {
 			if (juntable == "tomable"){
 					
 				let boton = document.getElementById(nombre);
-				divPrincipal.removeChild(boton);
+				let lugar = boton.parentNode;
+				lugar.removeChild(boton);
 				tomar = 0;				
 				botontomar.src = "interfaz/tomar.png";
 				audio.play();					
@@ -185,11 +275,9 @@ function accion(nombre, juntable) {
 		
 		if (usar == 1) {
 			
-
+			console.log(nombre);
 			usaro2 = nombre;
 			accionUsar();
-			
-			
 			
 		}
 	
@@ -371,7 +459,7 @@ function selecFicha(nombre, a) {
 		divPrincipal.appendChild(imgsele);
 		
 		usaro1 = nombre;
-	
+		asf.play();
 	}
 	
 	else if (seleccion == 1) {
@@ -405,10 +493,18 @@ function eliminar(nombre) {
 	
 	objetoi.count--;
 	inventario();
-	} 
+	
+} 
+
+function eliminarDelNivel(nombre){
+	
+		let hijo = document.getElementById(nombre);
+		let padre = hijo.parentNode;
+		padre.removeChild(hijo);
+	
+}
 
 
-objetoi.count = 0;
 
 // ordenador de inventario
 
@@ -472,6 +568,9 @@ function descrip(nombre) {
 	
 }
 
+
+
+
 // ------ Funciones de Usar ------------
 
 function funcionesUsar(codigo) {
@@ -490,16 +589,11 @@ function funcionesUsar(codigo) {
 
 	else if (codigo == "cofre") {
 		
-		let boton = document.getElementById("cofre");
-		divPrincipal.removeChild(boton);
+		eliminarDelNivel(codigo);
 		
-		const cofrea = document.createElement("img");		
-		cofrea.src = "interfaz/obj/cofrea.png";
-		cofrea.className = "objetocofrea";
-		divPrincipal.appendChild(cofrea);
-		
+		objetoFondo("cofrea", "pieza");
 	
-		let objetollave = new objeto("llave", "tomable", "casa");
+		let objetollave = new objeto("llave", "tomable", "pieza");
 		
 		cuadromirar("cofreu");
 		
@@ -507,13 +601,11 @@ function funcionesUsar(codigo) {
 	
 	else if (codigo == "llavepuerta") {
 	
-		let boton = document.getElementById("puerta");
-		divPrincipal.removeChild(boton);
+	
+		eliminarDelNivel("puerta");
 		
-		const puertaa = document.createElement("img");		
-		puertaa.src = "interfaz/obj/puertaa.png";
-		puertaa.className = "objetopuerta";
-		divPrincipal.appendChild(puertaa);
+		objetoFondo("puertaa", "entrada");
+
 		
 		eliminar("llave");
 		
@@ -538,9 +630,15 @@ function funcionesUsar(codigo) {
 // let objetog = new objeto("g");
 // let objetoh = new objeto("h");
 
+nivelNuevo("pieza");
+nivelNuevo("entrada");
+
+let entradad = document.getElementById("nivelentrada");
+entradad.style.visibility = 'hidden';
+
+let objetocofre = new objeto("cofre", "noTomable", "pieza");
+let objetopuerta = new objeto("puerta", "noTomable", "entrada");
 
 
-let objetocofre = new objeto("cofre", "noTomable", "casa");
-let objetopuerta = new objeto("puerta", "noTomable", "casa");
 
 
