@@ -87,6 +87,33 @@ section {
 	
 }
 
+.oeste {
+        bottom: 102px;
+        left: 920px;
+        position: absolute;	
+		z-index: 11;
+		
+	
+}
+
+.norte {
+        bottom: 173px;
+        left: 845px;
+        position: absolute;	
+		z-index: 11;
+		
+	
+}
+
+.sur {
+        bottom: 32px;
+        left: 845px;
+        position: absolute;	
+		z-index: 11;
+		
+	
+}
+
 .objetoa {
 		bottom: 500px;
         left: 150px;

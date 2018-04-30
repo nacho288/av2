@@ -28,11 +28,17 @@ const ssel = new Audio('sel.mp3');
 const sunsel = new Audio('unsel.mp3');
 const cnvl = new Audio('nivel.mp3');
 const asf = new Audio('seleficha.mp3');
+
 /////// creando niveles /////////////////////////
 
+let nivelArray = new Array;
+let contadorNiveles = 0;
 
-
-function nivelNuevo(nombre) {
+function nivelNuevo(nombre, x, y, entrable) {
+	
+	contadorNiveles++;
+	
+	nivelArray[contadorNiveles] = {nombre: nombre, x: x, y: y, entrable: entrable};
 	
 	const nivel = document.createElement("div");
 	nivel.className = "nivel";
@@ -43,61 +49,308 @@ function nivelNuevo(nombre) {
 	const fondo = document.createElement("img");
 	fondo.src = "interfaz/fondos/" + nombre + ".png";
 	
+	nivel.style.visibility = 'hidden';
+	
 	nivel.appendChild(fondo);
 	divPrincipal.appendChild(nivel);
 	
 }
 
-/////////// cambia nivel{}  //////////////////
-
-let nivelActual = 0;
-
-
-
-const botonEste = document.createElement("input");
-botonEste.setAttribute("type", "image");
-botonEste.setAttribute("onclick", "cambiaNivel()");
-botonEste.src = "interfaz/estep.png";
-botonEste.className = "este";
-divPrincipal.appendChild(botonEste);
-
-function cambiaNivel(){
+function nivelIncial(nombre){
 	
-	cnvl.play();
+	let nivel = document.getElementById("nivel" + nombre);
+	nivel.style.visibility = 'visible';
 	
-	if (nivelActual == 0){
+	nivelActual = nombre;
+	
+	let coordenadas = conseguirCoordenadas(nombre);
+	
+	botonesNavegacion(coordenadas.x, coordenadas.y);
+	
+	
+}
+
+function conseguirCoordenadas(nombre){
+	
+	let i = 1;
+	let theX;
+	let theY;
+	
+	while (i <= contadorNiveles) {
 		
-		nivelActual = 1;
+		if (nivelArray[i].nombre == nombre){
+			
+			theX = nivelArray[i].x;
+			
+			theY = nivelArray[i].y;
+			
+			break;
+			
+		}
 		
-		console.log("llendo a entrada");
-		
-		let pieza = document.getElementById("nivelpieza");
-		let entrada = document.getElementById("nivelentrada");
-		
-		pieza.style.visibility = 'hidden';		
-        entrada.style.visibility = 'visible';
+		i++;
 		
 	}
 	
-	else if (nivelActual == 1){
+	return {x: theX, y: theY}
+	
+}
+
+function conseguirNombre (x, y) {
+	
+	let i = 1;
+	let nombre;
+	
+	while (i <= contadorNiveles) {
 		
-		let pieza = document.getElementById("nivelpieza");
-		let entrada = document.getElementById("nivelentrada");
 		
-		console.log("llendo a pieza");
+		if (nivelArray[i].x == x && nivelArray[i].y == y){
+			
+			nombre = nivelArray[i].nombre;
+			
+			return nombre;
+			break;
+			
+		}
 		
-		entrada.style.visibility = 'hidden';		
-        pieza.style.visibility = 'visible';
-		
-		nivelActual = 0;
-		
-		
+		i++;
 		
 	}
+	
 	
 	
 	
 }
+
+/////////// cambia nivel{}  //////////////////
+
+let nivelActual = null;
+
+let movilidad = {norte: false, sur: false, este: false, oeste: false};
+
+let estadoBotonNorte = false;
+let estadoBotonSur = false;
+let estadoBotonEste = false;
+let estadoBotonOeste = false;
+
+function botonesNavegacion(x, y){
+	
+	testeadorMovilidad(x, y);
+	
+	
+	if (movilidad.oeste == true && estadoBotonOeste == false) {
+		
+		const botonOeste = document.createElement("input");
+		botonOeste.setAttribute("id", "botonOeste")
+		botonOeste.setAttribute("type", "image");
+		botonOeste.setAttribute("onclick", "cambiaNivel('oeste')");
+		botonOeste.src = "interfaz/oestep.png";
+		botonOeste.className = "oeste";
+		divPrincipal.appendChild(botonOeste);
+		
+		estadoBotonOeste = true;
+		
+	}
+	
+	if (movilidad.oeste == false && estadoBotonOeste == true) {
+		
+		let boton = document.getElementById("botonOeste")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		estadoBotonOeste = false;
+		
+	}
+	
+	if (movilidad.este == true && estadoBotonEste == false) {
+		
+		const botonEste = document.createElement("input");
+		botonEste.setAttribute("type", "image");
+		botonEste.setAttribute("id", "botonEste")
+		botonEste.setAttribute("onclick", "cambiaNivel('este')");
+		botonEste.src = "interfaz/estep.png";
+		botonEste.className = "este";
+		divPrincipal.appendChild(botonEste);
+		
+		estadoBotonEste = true;
+		
+	}
+	
+	if (movilidad.este == false && estadoBotonEste == true) {
+		
+		let boton = document.getElementById("botonEste")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		estadoBotonEste = false;
+		
+	}
+	
+	if (movilidad.sur == true && estadoBotonSur == false) {
+		
+		const botonSur = document.createElement("input");
+		botonSur.setAttribute("id", "botonSur")
+		botonSur.setAttribute("type", "image");
+		botonSur.setAttribute("onclick", "cambiaNivel('sur')");
+		botonSur.src = "interfaz/surp.png";
+		botonSur.className = "sur";
+		divPrincipal.appendChild(botonSur);
+		
+		estadoBotonSur = true;
+		
+	}
+	
+	if (movilidad.sur == false && estadoBotonSur == true) {
+		
+		let boton = document.getElementById("botonSur")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		estadoBotonSur = false;
+		
+	}
+	
+	if (movilidad.norte == true && estadoBotonNorte == false) {
+		
+		const botonNorte = document.createElement("input");
+		botonNorte.setAttribute("id", "botonNorte")
+		botonNorte.setAttribute("type", "image");
+		botonNorte.setAttribute("onclick", "cambiaNivel('norte')");
+		botonNorte.src = "interfaz/nortep.png";
+		botonNorte.className = "norte";
+		divPrincipal.appendChild(botonNorte);
+		
+		estadoBotonNorte = true;
+	
+	}
+	
+	if (movilidad.norte == false && estadoBotonNorte == true) {
+		
+		let boton = document.getElementById("botonNorte")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		estadoBotonNorte = false;
+		
+	}
+	
+}
+
+function testeadorMovilidad(x, y) {
+	
+	
+	var ioeste = 1;
+	var ieste = 1;
+	var inorte = 1;
+	var isur = 1;
+	
+	movilidad.oeste = false;	
+	movilidad.norte = false;
+	movilidad.sur = false;
+	movilidad.este = false;
+	
+	while (ioeste <= contadorNiveles) {		
+									
+		if (nivelArray[ioeste].x == x - 1 && nivelArray[ioeste].y == y) {
+			
+			movilidad.oeste = true;
+     		break;
+			
+		} 
+		
+		ioeste++;
+		
+	}
+
+		while (ieste <= contadorNiveles) {	
+									
+		if (nivelArray[ieste].x == x + 1 && nivelArray[ieste].y == y) {
+			
+			movilidad.este = true;
+			break;
+			
+		} 
+		
+		ieste++;
+		
+	}
+
+		while (inorte <= contadorNiveles) {	
+									
+		if (nivelArray[inorte].x == x && nivelArray[inorte].y == y + 1) {
+			
+			movilidad.norte = true;
+			break;
+			
+		} 
+		
+		inorte++;
+		
+	}
+
+		while (isur <= contadorNiveles) {	
+									
+		if (nivelArray[isur].x == x && nivelArray[isur].y == y - 1) {
+			
+			movilidad.sur = true;
+			break;
+			
+		} 
+		
+		isur++;
+		
+	}	
+	
+}
+
+function cambiaNivel(direccion){
+	
+	let partida = document.getElementById("nivel" + nivelActual);	
+	partida.style.visibility = 'hidden'
+	
+	let coordenadasPartida = conseguirCoordenadas(nivelActual);
+	
+	let xLlegada;
+	let yLlegada;
+	
+	if (direccion == "norte") {
+		
+		xLlegada = coordenadasPartida.x;
+		yLlegada = coordenadasPartida.y + 1;
+		
+	}
+	
+	if (direccion == "sur") {
+		
+		xLlegada = coordenadasPartida.x;
+		yLlegada = coordenadasPartida.y - 1;
+		
+	}
+	
+	if (direccion == "este") {
+		
+		xLlegada = coordenadasPartida.x + 1;
+		yLlegada = coordenadasPartida.y;
+		
+	}
+	
+	if (direccion == "oeste") {
+		
+		xLlegada = coordenadasPartida.x - 1;
+		yLlegada = coordenadasPartida.y;
+		
+	}
+
+	let nombreLlegada = conseguirNombre(xLlegada, yLlegada);
+	
+	let llegada = document.getElementById("nivel" + nombreLlegada);	
+	llegada.style.visibility = 'visible'
+	
+	nivelActual = nombreLlegada;
+	botonesNavegacion(xLlegada, yLlegada);
+	
+}
+
 
 /////////// elbotondetomar{}  //////////////////
 
@@ -157,9 +410,13 @@ if (detener == 0 && usaro1 == null){
 		
 		}
 
-	else if (mirar == 1) { botonmirar.src = "interfaz/mirar.png"; mirar = 0; sunsel.play();}
+	else if (mirar == 1) { 
 	
-}
+		botonmirar.src = "interfaz/mirar.png"; mirar = 0; sunsel.play();
+		
+		}
+	
+    }
 
 }
 
@@ -175,20 +432,24 @@ divPrincipal.appendChild(botonusar);
 
 function usarusar() {
 	
-if (detener == 0 && usaro1 == null){ 
-	
-	if (usar == 0) { 
+	if (detener == 0 && usaro1 == null){ 
 		
-		botonusar.src = "interfaz/usarp.png"; usar = 1;
-		botonmirar.src = "interfaz/mirar.png"; mirar = 0;
-		botontomar.src = "interfaz/tomar.png"; tomar = 0;
-		ssel.play();
+		if (usar == 0) { 
+			
+			botonusar.src = "interfaz/usarp.png"; usar = 1;
+			botonmirar.src = "interfaz/mirar.png"; mirar = 0;
+			botontomar.src = "interfaz/tomar.png"; tomar = 0;
+			ssel.play();
+			
+			}
+
+		else if (usar == 1) { 
+		
+		botonusar.src = "interfaz/usar.png"; usar = 0; sunsel.play();
 		
 		}
-
-	else if (usar == 1) { botonusar.src = "interfaz/usar.png"; usar = 0; sunsel.play();}
-	
-}
+		
+	}
 
 }
 
@@ -223,7 +484,6 @@ function objeto(nombre, juntable, lugar) {
 
 function objetoFondo(nombre, lugar) {
 	
-	console.log(lugar);
 	const objeto = document.createElement("img");		
 	objeto.src = "interfaz/obj/" + nombre + ".png";
 	objeto.className = "objeto" + nombre;
@@ -231,8 +491,6 @@ function objetoFondo(nombre, lugar) {
 	nivel.appendChild(objeto);
 	
 }
-
-
 
 function accion(nombre, juntable) {
 		
@@ -260,9 +518,6 @@ function accion(nombre, juntable) {
 				
 			}
 		
-
-			
-			
 		}				
 		
 		if (mirar == 1) {
@@ -275,7 +530,6 @@ function accion(nombre, juntable) {
 		
 		if (usar == 1) {
 			
-			console.log(nombre);
 			usaro2 = nombre;
 			accionUsar();
 			
@@ -299,8 +553,6 @@ function accionUsar() {
 	let parte2 = usaro2;
 	
 	let combinacion = parte1 + parte2;
-	
-	console.log(combinacion);
 	
 	funcionesUsar(combinacion);
 	
@@ -353,7 +605,6 @@ function cuadrousar(nombre) {
 	const sacardir = "sacarcuadro('u" + nombre + "')";
     cuadrin.setAttribute("onclick", sacardir);
 	
-	
 }
 
 function sacarcuadro(nombre) {
@@ -367,34 +618,31 @@ function sacarcuadro(nombre) {
 
 
 
-
 // Generadores de fichas de invetario
 
 function objetoi(nombre) {
 	
-objetoi.count++;
+	objetoi.count++;
 
-inventa[objetoi.count] = nombre;
+	inventa[objetoi.count] = nombre;
 
-const boton = document.createElement("input");
+	const boton = document.createElement("input");
 
-boton.setAttribute("type", "image");
-boton.setAttribute("id", nombre);
+	boton.setAttribute("type", "image");
+	boton.setAttribute("id", nombre);
 
-let numero = objetoi.count;
-
-
-const accdir = "accionficha('" + nombre + "')";
-
-boton.setAttribute("onclick", accdir);
-
-boton.src = "interfaz/obj/" + nombre + "-o.png";
-boton.className = "objeto" + objetoi.count + "o";
-
-divPrincipal.appendChild(boton);
+	let numero = objetoi.count;
 
 
-				
+	const accdir = "accionficha('" + nombre + "')";
+
+	boton.setAttribute("onclick", accdir);
+
+	boton.src = "interfaz/obj/" + nombre + "-o.png";
+	boton.className = "objeto" + objetoi.count + "o";
+
+	divPrincipal.appendChild(boton);
+		
 }
 
 function accionficha(nombre){
@@ -419,8 +667,7 @@ function accionficha(nombre){
 					
 				}
 
-		
-			
+
 			}
 			
 			else {
@@ -504,8 +751,6 @@ function eliminarDelNivel(nombre){
 	
 }
 
-
-
 // ordenador de inventario
 
 function inventario() {
@@ -516,8 +761,6 @@ function inventario() {
 	let elqsigue;
 	
 	while (a <8) { 
-	
-	
 	
 	test = inventa[a];
 	
@@ -542,103 +785,3 @@ function inventario() {
 	}
 
 } 
-
-// ------ Descripciones ------------
-
-function descrip(nombre) {
-	
-	if (nombre == "a") {return "Esto es una letra A de color verde";}
-	if (nombre == "b") {return "Esto es una letra B de color amarillo";}
-	if (nombre == "c") {return "Esto es una letra C de color azul";}
-	if (nombre == "d") {return "Esto es una letra D de color rojo";}
-	if (nombre == "e") {return "Esto es una letra E de color celeste";}
-	if (nombre == "f") {return "Esto es una letra F de color naranja";}
-	if (nombre == "g") {return "Esto es una letra G de color rosa";}
-	if (nombre == "h") {return "Esto es una letra H de color violeta";}
-	if (nombre == "llave") {return "Esto es una llave mal dibujada";}
-	if (nombre == "cofre") {return "Un cofre sucio cerrado";}
-	if (nombre == "puerta") {return "Una puerta cerrada";}
-	
-	if (nombre == "ab") {return "La mezcla magica";}
-	if (nombre == "nadausar") {return "No te entiendo";}
-	if (nombre == "cofreu") {return "cofre abierto, tiene una llave";}
-	if (nombre == "puertaa") {return "Puerta abierta";}
-	
-	if (nombre == "notomar") {return "No puedo agarrar eso";}
-	
-}
-
-
-
-
-// ------ Funciones de Usar ------------
-
-function funcionesUsar(codigo) {
-	
-	if (codigo == "ab") {
-		
-		cuadromirar("ab");
-		
-	}
-	
-	else if (codigo == "puerta") {
-	
-	cuadromirar("puerta");
-		
-	}
-
-	else if (codigo == "cofre") {
-		
-		eliminarDelNivel(codigo);
-		
-		objetoFondo("cofrea", "pieza");
-	
-		let objetollave = new objeto("llave", "tomable", "pieza");
-		
-		cuadromirar("cofreu");
-		
-	}
-	
-	else if (codigo == "llavepuerta") {
-	
-	
-		eliminarDelNivel("puerta");
-		
-		objetoFondo("puertaa", "entrada");
-
-		
-		eliminar("llave");
-		
-		cuadromirar("puertaa");
-		
-	
-	}
-	
-	else { cuadromirar("nadausar"); } 
-	
-}
-
-// ------ Generando objetos ------------
-
-
-// let objetoa = new objeto("a");
-// let objetob = new objeto("b");
-// let objetoc = new objeto("c");
-// let objetod = new objeto("d");
-// let objetoe = new objeto("e");
-// let objetof = new objeto("f");
-// let objetog = new objeto("g");
-// let objetoh = new objeto("h");
-
-nivelNuevo("pieza");
-nivelNuevo("entrada");
-
-let entradad = document.getElementById("nivelentrada");
-entradad.style.visibility = 'hidden';
-
-let objetocofre = new objeto("cofre", "noTomable", "pieza");
-let objetopuerta = new objeto("puerta", "noTomable", "entrada");
-
-
-
-
