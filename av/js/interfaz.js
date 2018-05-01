@@ -56,6 +56,8 @@ function nivelNuevo(nombre, x, y, entrable) {
 	
 }
 
+
+
 function nivelIncial(nombre){
 	
 	let nivel = document.getElementById("nivel" + nombre);
@@ -116,20 +118,43 @@ function conseguirNombre (x, y) {
 		i++;
 		
 	}
+		
+}
+
+function hacerEntrable(nombre){
 	
+	let i = 1;
+
 	
-	
+	while (i <= contadorNiveles) {
+		
+		if (nivelArray[i].nombre == nombre){
+			
+            nivelArray[i].entrable = "entrable";
+			
+			let coordenadas = conseguirCoordenadas(nivelActual);
+			
+			botonesNavegacion(coordenadas.x, coordenadas.y);
+			
+			break;
+			
+		}
+		
+		i++;
+		
+	}
 	
 }
+
 
 /////////// cambia nivel{}  //////////////////
 
 let nivelActual = null;
 
-let movilidad = {norte: false, sur: false, este: false, oeste: false};
+let movilidad = {norte: 0, sur: 0, este: false, oeste: false};
 
-let estadoBotonNorte = false;
-let estadoBotonSur = false;
+let estadoBotonNorte = 0;
+let estadoBotonSur = 0;
 let estadoBotonEste = false;
 let estadoBotonOeste = false;
 
@@ -186,7 +211,7 @@ function botonesNavegacion(x, y){
 		
 	}
 	
-	if (movilidad.sur == true && estadoBotonSur == false) {
+	if (movilidad.sur == 1 && estadoBotonSur == 0) {
 		
 		const botonSur = document.createElement("input");
 		botonSur.setAttribute("id", "botonSur")
@@ -196,21 +221,69 @@ function botonesNavegacion(x, y){
 		botonSur.className = "sur";
 		divPrincipal.appendChild(botonSur);
 		
-		estadoBotonSur = true;
+		estadoBotonSur = 1;
 		
 	}
 	
-	if (movilidad.sur == false && estadoBotonSur == true) {
+	if (movilidad.sur == 1 && estadoBotonSur == 2) {
 		
 		let boton = document.getElementById("botonSur")
 		let padre = boton.parentNode
 		padre.removeChild(boton);
 		
-		estadoBotonSur = false;
+		const botonSur = document.createElement("input");
+		botonSur.setAttribute("id", "botonSur")
+		botonSur.setAttribute("type", "image");
+		botonSur.setAttribute("onclick", "cambiaNivel('sur')");
+		botonSur.src = "interfaz/surp.png";
+		botonSur.className = "sur";
+		divPrincipal.appendChild(botonSur);
+		
+		estadoBotonSur = 1;
 		
 	}
 	
-	if (movilidad.norte == true && estadoBotonNorte == false) {
+	if (movilidad.sur == 2 && estadoBotonSur == 0) {
+		
+		const botonSur = document.createElement("img");
+		botonSur.setAttribute("id", "botonSur")
+		botonSur.src = "interfaz/sura.png";
+		botonSur.className = "sur";
+		divPrincipal.appendChild(botonSur);
+		
+		estadoBotonSur = 2;
+		
+	}
+	
+	if (movilidad.sur == 2 && estadoBotonSur == 1) {
+		
+		let boton = document.getElementById("botonSur")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		const botonSur = document.createElement("img");
+		botonSur.setAttribute("id", "botonSur")
+		botonSur.src = "interfaz/sura.png";
+		botonSur.className = "sur";
+		divPrincipal.appendChild(botonSur);
+		
+		estadoBotonSur = 2;
+		
+	}
+	
+	if (movilidad.sur == 0 && estadoBotonSur != 0) {
+		
+		let boton = document.getElementById("botonSur")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		estadoBotonSur = 0;
+		
+	}
+	
+	///////////////////////////////////////////////////
+	
+	if (movilidad.norte == 1 && estadoBotonNorte == 0) {
 		
 		const botonNorte = document.createElement("input");
 		botonNorte.setAttribute("id", "botonNorte")
@@ -220,17 +293,63 @@ function botonesNavegacion(x, y){
 		botonNorte.className = "norte";
 		divPrincipal.appendChild(botonNorte);
 		
-		estadoBotonNorte = true;
-	
+		estadoBotonNorte = 1;
+		
 	}
 	
-	if (movilidad.norte == false && estadoBotonNorte == true) {
+	if (movilidad.norte == 1 && estadoBotonNorte == 2) {
 		
 		let boton = document.getElementById("botonNorte")
 		let padre = boton.parentNode
 		padre.removeChild(boton);
 		
-		estadoBotonNorte = false;
+		const botonNorte = document.createElement("input");
+		botonNorte.setAttribute("id", "botonNorte")
+		botonNorte.setAttribute("type", "image");
+		botonNorte.setAttribute("onclick", "cambiaNivel('norte')");
+		botonNorte.src = "interfaz/nortep.png";
+		botonNorte.className = "norte";
+		divPrincipal.appendChild(botonNorte);
+		
+		estadoBotonNorte = 1;
+		
+	}
+	
+	if (movilidad.norte == 2 && estadoBotonNorte == 0) {
+		
+		const botonNorte = document.createElement("img");
+		botonNorte.setAttribute("id", "botonNorte")
+		botonNorte.src = "interfaz/nortea.png";
+		botonNorte.className = "norte";
+		divPrincipal.appendChild(botonNorte);
+		
+		estadoBotonNorte = 2;
+		
+	}
+	
+	if (movilidad.norte == 2 && estadoBotonNorte == 1) {
+		
+		let boton = document.getElementById("botonNorte")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		const botonNorte = document.createElement("img");
+		botonNorte.setAttribute("id", "botonNorte")
+		botonNorte.src = "interfaz/nortea.png";
+		botonNorte.className = "norte";
+		divPrincipal.appendChild(botonNorte);
+		
+		estadoBotonNorte = 2;
+		
+	}
+	
+	if (movilidad.norte == 0 && estadoBotonNorte != 0) {
+		
+		let boton = document.getElementById("botonNorte")
+		let padre = boton.parentNode
+		padre.removeChild(boton);
+		
+		estadoBotonNorte = 0;
 		
 	}
 	
@@ -244,9 +363,9 @@ function testeadorMovilidad(x, y) {
 	var inorte = 1;
 	var isur = 1;
 	
-	movilidad.oeste = false;	
-	movilidad.norte = false;
-	movilidad.sur = false;
+	movilidad.oeste = false;
+	movilidad.norte = 0;
+	movilidad.sur = 0;
 	movilidad.este = false;
 	
 	while (ioeste <= contadorNiveles) {		
@@ -262,7 +381,7 @@ function testeadorMovilidad(x, y) {
 		
 	}
 
-		while (ieste <= contadorNiveles) {	
+	while (ieste <= contadorNiveles) {	
 									
 		if (nivelArray[ieste].x == x + 1 && nivelArray[ieste].y == y) {
 			
@@ -275,32 +394,54 @@ function testeadorMovilidad(x, y) {
 		
 	}
 
-		while (inorte <= contadorNiveles) {	
+	while (inorte <= contadorNiveles) {	
 									
 		if (nivelArray[inorte].x == x && nivelArray[inorte].y == y + 1) {
 			
-			movilidad.norte = true;
-			break;
+			if (nivelArray[inorte].entrable == "entrable"){
 			
+				movilidad.norte = 1;
+			
+			}
+			
+			else {
+				
+				movilidad.norte = 2;
+			
+			}
+			
+			break;
+					
 		} 
 		
 		inorte++;
 		
-	}
+	}	
 
-		while (isur <= contadorNiveles) {	
+	while (isur <= contadorNiveles) {	
 									
 		if (nivelArray[isur].x == x && nivelArray[isur].y == y - 1) {
 			
-			movilidad.sur = true;
-			break;
+			if (nivelArray[isur].entrable == "entrable"){
 			
+				movilidad.sur = 1;
+			
+			}
+			
+			else {
+				
+				movilidad.sur = 2;
+			
+			}
+			
+			break;	
+		
 		} 
-		
-		isur++;
-		
-	}	
 	
+		isur++;
+	
+	}	
+
 }
 
 function cambiaNivel(direccion){
