@@ -10,33 +10,33 @@ section {
 		margin-top: 30px;
 		background-color: white;
 		}
-		
+
 
 .marco {
 		position: relative;
         margin: auto;
-	
+
 }
 
 .nivel {
-	
+
 		width: 925px;
 		height: 441px;
 		bottom: 299px;
         left: 48px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
 		background-color: silver;
-	
+
 }
 
 .textines {
 		background-color: black;
 		position: absolute;
-		left: 0; 
-		right: 0; 
-		margin-left: auto; 
-		margin-right: auto; 		
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
 		width: 500px;
 		bottom: 320px;
 		z-index: 12;
@@ -47,143 +47,143 @@ section {
 		text-align: center;
 		font-size: 20px;
 		z-index: 11;
-		
-	
+
+
 }
 
 .tomar {
 		bottom: 161px;
         left: 545px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .mirar {
 		bottom: 93px;
         left: 545px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .usar {
 		bottom: 24px;
         left: 545px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .este {
         bottom: 102px;
         left: 772px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .oeste {
         bottom: 102px;
         left: 920px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .norte {
         bottom: 173px;
         left: 845px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .sur {
         bottom: 32px;
         left: 845px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objetoa {
 		bottom: 500px;
         left: 150px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetob {
 		bottom: 500px;
         left: 220px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetoc {
 		bottom: 500px;
         left: 300px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetod {
 		bottom: 500px;
         left: 400px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetoe {
 		bottom: 300px;
         left: 400px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetof {
 		bottom: 300px;
         left: 150px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetog {
 		bottom: 300px;
         left: 220px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 .objetoh {
 		bottom: 300px;
         left: 300px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-		
-	
+
+
 }
 
 
@@ -192,114 +192,116 @@ section {
 .objetollave {
 		bottom: 155px;
 		left: 420px;
-		position: absolute;	
+		position: absolute;
 		z-index: 12;
-		
-	
+
+
 }
 
 .objetocofre {
 		bottom: 80px;
         left: 350px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-	
+
 }
 
 .objetocofrea{
 		bottom: 80px;
         left: 350px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-	
+
 }
 
 .objetopuerta{
 		bottom: 39px;
         left: 440px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-	
+
 }
 
 .objetopuertaa{
 		bottom: 15px;
         left: 440px;
-        position: absolute;	
+        position: absolute;
 		z-index: 10;
-	
+
 }
 
 .objeto1o {
 		bottom: 132px;
         left: 46px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto2o {
 		bottom: 132px;
         left: 161px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto3o {
 		bottom: 132px;
         left: 278px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto4o {
 		bottom: 132px;
         left: 393px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto5o {
 		bottom: 24px;
         left: 45px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto6o {
 		bottom: 24px;
         left: 160px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto7o {
 		bottom: 24px;
         left: 277px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
 .objeto8o {
 		bottom: 24px;
         left: 392px;
-        position: absolute;	
+        position: absolute;
 		z-index: 11;
-		
-	
+
+
 }
 
-
+.always-on-top {
+  z-index: 999;
+}
