@@ -39,7 +39,7 @@ function nivelNuevo (nombre, x, y, entrable) {
   nivelArray.push({ nombre, x, y, entrable })
 
   const nuevoNivel = `
-    <div class="nivel" id="nivel${nombre}" style="display: hidden">
+    <div class="nivel" id="nivel${nombre}" style="visibility: hidden">
         <img src="interfaz/fondos/${nombre}.png" />
     </div>`
 
@@ -252,7 +252,7 @@ function testeadorMovilidad (x, y) {
   movilidad.oeste = indexOeste !== -1
 
     // manejas movilidad ESTE
-  const indexEste = nivelArray.findIndex(nivel => nivel.x === x - 1 && nivel.y === y)
+  const indexEste = nivelArray.findIndex(nivel => nivel.x === x + 1 && nivel.y === y)
   movilidad.este = indexEste !== -1
 
     // manejas movilidad NORTE
@@ -280,6 +280,7 @@ function testeadorMovilidad (x, y) {
   } else {
     movilidad.sur = 2
   }
+  
 }
 
 function cambiaNivel (direccion) {
@@ -318,6 +319,7 @@ function cambiaNivel (direccion) {
 
   nivelActual = nombreLlegada
   botonesNavegacion(xLlegada, yLlegada)
+  cnvl.play()
 }
 
 function actualizarAcciones (tomar, mirar, usar) {
@@ -485,9 +487,11 @@ function cuadromirar (nombre) {
   detener = 1
   sabrir.play()
 
+  let mensaje = descrip(nombre)
+  
   const cuadrin = `
   <div class="textines" id="m${nombre}" onclick="sacarcuadro('m${nombre}')">
-    <p class="letras">${nombre}</p>
+    <p class="letras">${mensaje}</p>
   </div>`
 
   divPrincipal.insertAdjacentHTML('afterbegin', cuadrin)
