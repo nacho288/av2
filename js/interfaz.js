@@ -72,11 +72,11 @@ function conseguirNombre (x, y) {
   throw Error('Nivel no encontrado en el array de niveles')
 }
 
-function hacerEntrable (nombre) {
+function cambiarEntrabilidad (nombre, entrable) {
   const index = nivelArray.findIndex(nivel => nivel.nombre === nombre)
   if (index === -1) throw Error('Nivel no encontrado en el array de niveles')
 
-  nivelArray[index].entrable = 'entrable'
+  nivelArray[index].entrable = entrable
 
   let coordenadas = conseguirCoordenadas(nivelActual)
   botonesNavegacion(coordenadas.x, coordenadas.y)
@@ -86,12 +86,12 @@ function hacerEntrable (nombre) {
 
 let nivelActual = null
 
-let movilidad = { norte: 0, sur: 0, este: false, oeste: false }
+let movilidad = { norte: 0, sur: 0, este: 0, oeste: 0 }
 
 let estadoBotonNorte = 0
 let estadoBotonSur = 0
-let estadoBotonEste = false
-let estadoBotonOeste = false
+let estadoBotonEste = 0
+let estadoBotonOeste = 0
 
 function crearBotonNavegacion (orientacion, prendido) {
   const mini = orientacion.toLowerCase()
@@ -106,34 +106,98 @@ function crearBotonNavegacion (orientacion, prendido) {
 function botonesNavegacion (x, y) {
   testeadorMovilidad(x, y)
 
-  if (movilidad.oeste == true && estadoBotonOeste == false) {
+  if (movilidad.oeste == 1 && estadoBotonOeste == 0) {
     const botonOeste = crearBotonNavegacion('oeste', true)
     divPrincipal.insertAdjacentHTML('afterbegin', botonOeste)
-    estadoBotonOeste = true
+
+    estadoBotonOeste = 1
   }
 
-  if (movilidad.oeste == false && estadoBotonOeste == true) {
+  if (movilidad.oeste == 1 && estadoBotonOeste == 2) {
     let boton = document.getElementById('botonOeste')
     let padre = boton.parentNode
     padre.removeChild(boton)
 
-    estadoBotonOeste = false
+    const botonOeste = crearBotonNavegacion('oeste', true)
+    divPrincipal.insertAdjacentHTML('afterbegin', botonOeste)
+
+    estadoBotonOeste = 1
   }
 
-  if (movilidad.este == true && estadoBotonEste == false) {
+  if (movilidad.oeste == 2 && estadoBotonOeste == 0) {
+    const botonOeste = crearBotonNavegacion('oeste', false)
+    divPrincipal.insertAdjacentHTML('afterbegin', botonOeste)
+
+    estadoBotonOeste = 2
+  }
+
+  if (movilidad.oeste == 2 && estadoBotonOeste == 1) {
+    let boton = document.getElementById('botonOeste')
+    let padre = boton.parentNode
+    padre.removeChild(boton)
+
+    const botonOeste = crearBotonNavegacion('oeste', false)
+    divPrincipal.insertAdjacentHTML('afterbegin', botonOeste)
+
+    estadoBotonOeste = 2
+  }
+
+  if (movilidad.oeste == 0 && estadoBotonOeste != 0) {
+    let boton = document.getElementById('botonOeste')
+    let padre = boton.parentNode
+    padre.removeChild(boton)
+
+    estadoBotonOeste = 0
+  }
+  
+    // /////////////////////////////////////////////////
+
+  if (movilidad.este == 1 && estadoBotonEste == 0) {
     const botonEste = crearBotonNavegacion('este', true)
     divPrincipal.insertAdjacentHTML('afterbegin', botonEste)
-    estadoBotonEste = true
+
+    estadoBotonEste = 1
   }
 
-  if (movilidad.este == false && estadoBotonEste == true) {
+  if (movilidad.este == 1 && estadoBotonEste == 2) {
     let boton = document.getElementById('botonEste')
     let padre = boton.parentNode
     padre.removeChild(boton)
 
-    estadoBotonEste = false
+    const botonEste = crearBotonNavegacion('este', true)
+    divPrincipal.insertAdjacentHTML('afterbegin', botonEste)
+
+    estadoBotonEste = 1
   }
 
+  if (movilidad.este == 2 && estadoBotonEste == 0) {
+    const botonEste = crearBotonNavegacion('este', false)
+    divPrincipal.insertAdjacentHTML('afterbegin', botonEste)
+
+    estadoBotonEste = 2
+  }
+
+  if (movilidad.este == 2 && estadoBotonEste == 1) {
+    let boton = document.getElementById('botonEste')
+    let padre = boton.parentNode
+    padre.removeChild(boton)
+
+    const botonEste = crearBotonNavegacion('este', false)
+    divPrincipal.insertAdjacentHTML('afterbegin', botonEste)
+
+    estadoBotonEste = 2
+  }
+
+  if (movilidad.este == 0 && estadoBotonEste != 0) {
+    let boton = document.getElementById('botonEste')
+    let padre = boton.parentNode
+    padre.removeChild(boton)
+
+    estadoBotonEste = 0
+  }
+
+    // /////////////////////////////////////////////////  
+  
   if (movilidad.sur == 1 && estadoBotonSur == 0) {
     const botonSur = crearBotonNavegacion('sur', true)
     divPrincipal.insertAdjacentHTML('afterbegin', botonSur)
@@ -242,25 +306,43 @@ function botonesNavegacion (x, y) {
 }
 
 function testeadorMovilidad (x, y) {
-  movilidad.oeste = false
+  movilidad.oeste = 0
   movilidad.norte = 0
   movilidad.sur = 0
-  movilidad.este = false
+  movilidad.este = 0
 
-    // manejas movilidad OESTE
-  const indexOeste = nivelArray.findIndex(nivel => nivel.x === x - 1 && nivel.y === y)
-  movilidad.oeste = indexOeste !== -1
+    // manejas movilidad OESTE  
+      const indexOeste = nivelArray.findIndex(nivel => nivel.x === x - 1 && nivel.y === y)
+  if (indexOeste === -1 || nivelArray[indexOeste].entrable.substring(2, 3) === '0') {
+      // no encontrado
+    movilidad.oeste = 0
+  } else if (nivelArray[indexOeste].entrable.substring(2, 3) === '1') {
+      // encontrado y entrable
+    movilidad.oeste = 1
+      // encontrado y no entrable
+  } else {
+    movilidad.oeste = 2
+  }
 
     // manejas movilidad ESTE
-  const indexEste = nivelArray.findIndex(nivel => nivel.x === x + 1 && nivel.y === y)
-  movilidad.este = indexEste !== -1
+    const indexEste = nivelArray.findIndex(nivel => nivel.x === x + 1 && nivel.y === y)
+  if (indexEste === -1 || nivelArray[indexEste].entrable.substring(3, 4) === '0') {
+      // no encontrado
+    movilidad.este = 0
+  } else if (nivelArray[indexEste].entrable.substring(3, 4) === '1') {
+      // encontrado y entrable
+    movilidad.este = 1
+      // encontrado y no entrable
+  } else {
+    movilidad.este = 2
+  }
 
     // manejas movilidad NORTE
   const indexNorte = nivelArray.findIndex(nivel => nivel.x === x && nivel.y === y + 1)
-  if (indexNorte === -1) {
+  if (indexNorte === -1 || nivelArray[indexNorte].entrable.substring(1, 2) === '0') {
       // no encontrado
     movilidad.norte = 0
-  } else if (nivelArray[indexNorte].entrable === 'entrable') {
+  } else if (nivelArray[indexNorte].entrable.substring(1, 2) === '1') {
       // encontrado y entrable
     movilidad.norte = 1
       // encontrado y no entrable
@@ -270,10 +352,10 @@ function testeadorMovilidad (x, y) {
 
     // manejas movilidad SUR
   const indexSur = nivelArray.findIndex(nivel => nivel.x === x && nivel.y === y - 1)
-  if (indexSur === -1) {
+  if (indexSur === -1 || nivelArray[indexSur].entrable.substring(0, 1) === '0') {
       // no encontrado
     movilidad.sur = 0
-  } else if (nivelArray[indexSur].entrable === 'entrable') {
+  } else if (nivelArray[indexSur].entrable.substring(0, 1) === '1') {
       // encontrado y entrable
     movilidad.sur = 1
       // encontrado y no entrable

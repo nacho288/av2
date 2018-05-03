@@ -65,7 +65,7 @@ function funcionesUsar(codigo) {
 
         eliminar("llave");
 
-        hacerEntrable("fin")
+        cambiarEntrabilidad("fin", "0100")
 
         cuadromirar("puertaa");		
 
@@ -87,12 +87,12 @@ function funcionesUsar(codigo) {
 // let objetog = new objeto("g");
 // let objetoh = new objeto("h");
 
-let nivelPieza = nivelNuevo("pieza", 2, 2, "entrable");
-let nivelEntrada = nivelNuevo("entrada", 2, 1, "entrable");
-let nivelrelleno1 = nivelNuevo("relleno1", 1, 2, "entrable");
-let nivelrelleno2 = nivelNuevo("relleno2", 3, 2, "entrable");
-let nivelrelleno3 = nivelNuevo("relleno3", 2, 3, "entrable");
-let nivelfin = nivelNuevo("fin", 2, 0, "noEntrable");
+let nivelPieza = nivelNuevo("pieza", 3, 2, "1001");
+let nivelEntrada = nivelNuevo("entrada", 2, 2, "1011");
+let nivelrelleno1 = nivelNuevo("relleno1", 3, 3, "0100");
+let nivelrelleno2 = nivelNuevo("relleno2", 1, 2, "1010");
+let nivelrelleno3 = nivelNuevo("relleno3", 1, 3, "0100");
+let nivelfin = nivelNuevo("fin", 2, 3, "0200");
 
 nivelIncial("pieza");
 
