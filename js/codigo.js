@@ -94,7 +94,7 @@ let nivelrelleno2 = nivelNuevo("relleno2", 1, 2, "1010");
 let nivelrelleno3 = nivelNuevo("relleno3", 1, 3, "0100");
 let nivelfin = nivelNuevo("fin", 2, 3, "0200");
 
-nivelIncial("pieza");
+nivelIncial("entrada");
 
 let objetocofre = new objeto("cofre", "noTomable", "pieza");
 let objetopuerta = new objeto("puerta", "noTomable", "entrada");

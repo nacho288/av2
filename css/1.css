@@ -30,6 +30,57 @@ section {
 
 }
 
+.transicion0 {
+
+		width: 925px;
+		height: 441px;
+		bottom: 299px;
+        left: 48px;
+        position: absolute;
+		z-index: 20;
+		background-color: black;
+		opacity: 0;
+
+}
+
+.transicion1 {
+
+		width: 925px;
+		height: 441px;
+		bottom: 299px;
+        left: 48px;
+        position: absolute;
+		z-index: 20;
+		background-color: black;
+		opacity: 0.5;
+
+}
+
+.transicion2 {
+
+		width: 925px;
+		height: 441px;
+		bottom: 299px;
+        left: 48px;
+        position: absolute;
+		z-index: 20;
+		background-color: black;
+		opacity: 0.8;
+
+}
+
+.transicion3 {
+
+		width: 925px;
+		height: 441px;
+		bottom: 299px;
+        left: 48px;
+        position: absolute;
+		z-index: 20;
+		background-color: black;
+		opacity: 1;
+}
+
 .textines {
 		background-color: black;
 		position: absolute;

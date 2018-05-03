@@ -22,12 +22,19 @@ let detener = 0
 // Declarando musica
 
 const audio = new Audio('turu.mp3')
+audio.volume = 0.2
 const sabrir = new Audio('abrir cuadro.mp3')
+sabrir.volume = 0.2
 const scerrar = new Audio('cerrar cuadro.mp3')
+scerrar.volume = 0.2
 const ssel = new Audio('sel.mp3')
+ssel.volume = 0.2
 const sunsel = new Audio('unsel.mp3')
+sunsel.volume = 0.2
 const cnvl = new Audio('nivel.mp3')
+cnvl.volume = 0.2
 const asf = new Audio('seleficha.mp3')
+asf.volume = 0.2
 
 // ///// creando niveles /////////////////////////
 
@@ -366,8 +373,11 @@ function testeadorMovilidad (x, y) {
 }
 
 function cambiaNivel (direccion) {
+	
+  if (detener == 1) return
+	
   let partida = document.getElementById('nivel' + nivelActual)
-  partida.style.visibility = 'hidden'
+  
 
   let coordenadasPartida = conseguirCoordenadas(nivelActual)
 
@@ -393,15 +403,63 @@ function cambiaNivel (direccion) {
     xLlegada = coordenadasPartida.x - 1
     yLlegada = coordenadasPartida.y
   }
-
+  
   let nombreLlegada = conseguirNombre(xLlegada, yLlegada)
 
-  let llegada = document.getElementById('nivel' + nombreLlegada)
-  llegada.style.visibility = 'visible'
+  function waitforit() {
+	  
+	  let llegada = document.getElementById('nivel' + nombreLlegada)
+	  partida.style.visibility = 'hidden'
+      llegada.style.visibility = 'visible'
+	  
+  }
+
 
   nivelActual = nombreLlegada
   botonesNavegacion(xLlegada, yLlegada)
-  cnvl.play()
+  transicion()
+  setTimeout(waitforit, 300)
+}
+
+function transicion(){
+	
+	let cuadroNegro = document.createElement('div')
+    cuadroNegro.setAttribute('id', 'cuadroNegro')
+    cuadroNegro.className = "transicion0"
+    divPrincipal.appendChild(cuadroNegro)
+	let estado = 0
+	let estado2 = 0
+	let cambio = 0
+	
+	let parar = function () {
+		
+		divPrincipal.removeChild(cuadroNegro)
+		detener = 0
+		}
+	
+	let grises = function() {
+		
+		estado2++
+		if (cambio == 0)estado++
+		else estado--
+		
+		if (estado == 3) cambio = 1
+		
+		console.log(estado)
+		
+		cuadroNegro.className = "transicion" + estado
+		
+		
+		if (estado2 <= 5){ setTimeout(grises, 100)}	
+		
+		
+	}
+	
+	detener = 1
+	setTimeout(parar, 600)
+	grises()
+	cnvl.play()
+	
 }
 
 function actualizarAcciones (tomar, mirar, usar) {
