@@ -423,42 +423,36 @@ function cambiaNivel (direccion) {
 
 function transicion(){
 	
-	let cuadroNegro = document.createElement('div')
-    cuadroNegro.setAttribute('id', 'cuadroNegro')
-    cuadroNegro.className = "transicion0"
-    divPrincipal.appendChild(cuadroNegro)
-	let estado = 0
-	let estado2 = 0
-	let cambio = 0
-	
-	let parar = function () {
-		
-		divPrincipal.removeChild(cuadroNegro)
-		detener = 0
-		}
-	
-	let grises = function() {
-		
-		estado2++
-		if (cambio == 0)estado++
-		else estado--
-		
-		if (estado == 3) cambio = 1
-		
-		console.log(estado)
-		
-		cuadroNegro.className = "transicion" + estado
-		
-		
-		if (estado2 <= 5){ setTimeout(grises, 100)}	
-		
-		
-	}
-	
-	detener = 1
-	setTimeout(parar, 600)
-	grises()
-	cnvl.play()
+  let cuadroNegro = document.createElement('div')
+  cuadroNegro.setAttribute('id', 'cuadroNegro')
+  cuadroNegro.className = "transicion0"
+  divPrincipal.appendChild(cuadroNegro)
+  let estado = 0
+  let estado2 = 0
+  let cambio = 0
+  
+  let parar = function () {
+  	
+  	divPrincipal.removeChild(cuadroNegro)
+  	detener = 0
+  	}
+  
+  let grises = function() {
+  	
+  	estado2++
+  	if (cambio == 0)estado++
+  	else estado--
+  	if (estado == 3) cambio = 1
+  	cuadroNegro.className = "transicion" + estado
+  	
+  	if (estado2 <= 5){ setTimeout(grises, 100)}	
+  
+  }
+  
+  detener = 1
+  setTimeout(parar, 600)
+  grises()
+  cnvl.play()
 	
 }
 
@@ -623,7 +617,7 @@ function accionUsar () {
   usar = 0
 }
 
-function cuadromirar (nombre) {
+function cuadromirar2 (nombre) {
   detener = 1
   sabrir.play()
 
@@ -635,6 +629,43 @@ function cuadromirar (nombre) {
   </div>`
 
   divPrincipal.insertAdjacentHTML('afterbegin', cuadrin)
+}
+
+function cuadromirar (nombre) {
+  detener = 1
+  let paso = 0
+  
+  sabrir.play()
+  
+  const cuadrin = document.createElement('div')
+  cuadrin.className = 'textines' + paso
+  cuadrin.setAttribute('id', 'u' + nombre)
+  
+  const sacardir = "sacarcuadro('u" + nombre + "')"
+  cuadrin.setAttribute('onclick', sacardir)
+ 
+  let mensaje = descrip(nombre)
+  
+  const texto1 = document.createElement('p')
+  texto1.textContent = mensaje
+  texto1.className = 'letras'
+
+  divPrincipal.appendChild(cuadrin)
+  cuadrin.appendChild(texto1)  
+  
+  function grises() {
+	  
+	  console.log(paso)
+	  cuadrin.className = 'textines' + paso
+	  console.log(cuadrin.className)
+	  paso++
+	  
+	  if (paso == 3){} 
+	  else setTimeout(grises, 100)
+  }
+
+  grises()
+
 }
 
 function cuadrousar (nombre) {
@@ -656,10 +687,29 @@ function cuadrousar (nombre) {
 }
 
 function sacarcuadro (nombre) {
-  const cuadro = document.getElementById(nombre)
-  divPrincipal.removeChild(cuadro)
+	
+  let paso = 2 
+  const cuadrin = document.getElementById(nombre)
+  
+  function grises() {
+	  
+	  if (paso == 0){
+		  
+		divPrincipal.removeChild(cuadrin)
+        detener = 0
+		  
+	  } 
+	  
+	  else setTimeout(grises, 100)
+	  
+	  cuadrin.className = 'textines' + paso
+	  paso--
+	  
+  }
+  
   scerrar.play()
-  detener = 0
+  grises()
+
 }
 
 // Generadores de fichas de invetario
