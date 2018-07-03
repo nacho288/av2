@@ -156,7 +156,7 @@ function botonesNavegacion (x, y) {
 
     estadoBotonOeste = 0
   }
-  
+
     // /////////////////////////////////////////////////
 
   if (movilidad.este == 1 && estadoBotonEste == 0) {
@@ -203,8 +203,8 @@ function botonesNavegacion (x, y) {
     estadoBotonEste = 0
   }
 
-    // /////////////////////////////////////////////////  
-  
+    // /////////////////////////////////////////////////
+
   if (movilidad.sur == 1 && estadoBotonSur == 0) {
     const botonSur = crearBotonNavegacion('sur', true)
     divPrincipal.insertAdjacentHTML('afterbegin', botonSur)
@@ -318,7 +318,7 @@ function testeadorMovilidad (x, y) {
   movilidad.sur = 0
   movilidad.este = 0
 
-    // manejas movilidad OESTE  
+    // manejas movilidad OESTE
       const indexOeste = nivelArray.findIndex(nivel => nivel.x === x - 1 && nivel.y === y)
   if (indexOeste === -1 || nivelArray[indexOeste].entrable.substring(2, 3) === '0') {
       // no encontrado
@@ -369,15 +369,15 @@ function testeadorMovilidad (x, y) {
   } else {
     movilidad.sur = 2
   }
-  
+
 }
 
 function cambiaNivel (direccion) {
-	
+
   if (detener == 1) return
-	
+
   let partida = document.getElementById('nivel' + nivelActual)
-  
+
 
   let coordenadasPartida = conseguirCoordenadas(nivelActual)
 
@@ -403,58 +403,19 @@ function cambiaNivel (direccion) {
     xLlegada = coordenadasPartida.x - 1
     yLlegada = coordenadasPartida.y
   }
-  
+
   let nombreLlegada = conseguirNombre(xLlegada, yLlegada)
 
-  function waitforit() {
-	  
-	  let llegada = document.getElementById('nivel' + nombreLlegada)
-	  partida.style.visibility = 'hidden'
-      llegada.style.visibility = 'visible'
-	  
-  }
+  let llegada = document.getElementById('nivel' + nombreLlegada)
 
-
+  cnvl.play()
+  partida.style.visibility = 'hidden'
+  llegada.style.visibility = 'visible'
   nivelActual = nombreLlegada
   botonesNavegacion(xLlegada, yLlegada)
-  transicion()
-  setTimeout(waitforit, 300)
+
 }
 
-function transicion(){
-	
-  let cuadroNegro = document.createElement('div')
-  cuadroNegro.setAttribute('id', 'cuadroNegro')
-  cuadroNegro.className = "transicion0"
-  divPrincipal.appendChild(cuadroNegro)
-  let estado = 0
-  let estado2 = 0
-  let cambio = 0
-  
-  let parar = function () {
-  	
-  	divPrincipal.removeChild(cuadroNegro)
-  	detener = 0
-  	}
-  
-  let grises = function() {
-  	
-  	estado2++
-  	if (cambio == 0)estado++
-  	else estado--
-  	if (estado == 3) cambio = 1
-  	cuadroNegro.className = "transicion" + estado
-  	
-  	if (estado2 <= 5){ setTimeout(grises, 100)}	
-  
-  }
-  
-  detener = 1
-  setTimeout(parar, 600)
-  grises()
-  cnvl.play()
-	
-}
 
 function actualizarAcciones (tomar, mirar, usar) {
   if (tomar === 1) {
@@ -622,7 +583,7 @@ function cuadromirar2 (nombre) {
   sabrir.play()
 
   let mensaje = descrip(nombre)
-  
+
   const cuadrin = `
   <div class="textines" id="m${nombre}" onclick="sacarcuadro('m${nombre}')">
     <p class="letras">${mensaje}</p>
@@ -632,39 +593,25 @@ function cuadromirar2 (nombre) {
 }
 
 function cuadromirar (nombre) {
+
   detener = 1
-  let paso = 0
-  
   sabrir.play()
-  
+
   const cuadrin = document.createElement('div')
-  cuadrin.className = 'textines' + paso
+  cuadrin.className = 'textines'
   cuadrin.setAttribute('id', 'u' + nombre)
-  
+
   const sacardir = "sacarcuadro('u" + nombre + "')"
   cuadrin.setAttribute('onclick', sacardir)
- 
+
   let mensaje = descrip(nombre)
-  
+
   const texto1 = document.createElement('p')
   texto1.textContent = mensaje
   texto1.className = 'letras'
 
   divPrincipal.appendChild(cuadrin)
-  cuadrin.appendChild(texto1)  
-  
-  function grises() {
-	  
-	  console.log(paso)
-	  cuadrin.className = 'textines' + paso
-	  console.log(cuadrin.className)
-	  paso++
-	  
-	  if (paso == 3){} 
-	  else setTimeout(grises, 100)
-  }
-
-  grises()
+  cuadrin.appendChild(texto1)
 
 }
 
@@ -687,28 +634,11 @@ function cuadrousar (nombre) {
 }
 
 function sacarcuadro (nombre) {
-	
-  let paso = 2 
+
   const cuadrin = document.getElementById(nombre)
-  
-  function grises() {
-	  
-	  if (paso == 0){
-		  
-		divPrincipal.removeChild(cuadrin)
-        detener = 0
-		  
-	  } 
-	  
-	  else setTimeout(grises, 100)
-	  
-	  cuadrin.className = 'textines' + paso
-	  paso--
-	  
-  }
-  
+  divPrincipal.removeChild(cuadrin)
+  detener = 0
   scerrar.play()
-  grises()
 
 }
 

@@ -89,7 +89,7 @@ section {
 		margin-left: auto;
 		margin-right: auto;
 		width: 500px;
-		heigth: 300px; 
+		heigth: 300px;
 		bottom: 320px;
 		z-index: 12;
 		opacity: 0.3;
@@ -121,6 +121,19 @@ section {
 		bottom: 320px;
 		z-index: 12;
 		opacity: 1;
+}
+
+.textines {
+		background-color: black;
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		width: 500px;
+		heigth: 300px;
+		bottom: 320px;
+		z-index: 12;
 }
 
 .letras {
